@@ -1,0 +1,7 @@
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    // 集成await async等ES6、7、8的新特性
+    ["@babel/plugin-transform-runtime"]
+  ]
+}
