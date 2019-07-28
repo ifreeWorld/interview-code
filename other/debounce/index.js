@@ -29,6 +29,20 @@ function throttle(func, context, params, delay) {
   }
 }
 
+// 第二种节流
+function throttle(func, context, params, delay) {
+  var timer = null
+  return () => {
+    if (timer) {
+      return
+    }
+    timer = setTimeout(() => {
+      func.apply(context, params)
+      timer = null
+    }, delay)
+  }
+}
+
 window.onresize = throttle((a) => {
   console.log(a)
 }, window, [2], 500)
