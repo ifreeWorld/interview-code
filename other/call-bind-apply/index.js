@@ -38,7 +38,7 @@ console.log(a)
 Function.prototype.selfApply = function() {
   var params = arguments
   var context = params[0]
-  var args = params[1]
+  var args = Array.prototype.slice.call(params, 1)
   var self = this
   return eval(`self.call(context, ${args.join(',')})`)
 }

@@ -11,9 +11,10 @@ function debounce(func, context, params, delay) {
   }
 }
 
-window.onresize = debounce((a) => {
+window.onmousemove = debounce((a) => {
   console.log(a)
 }, window, [1], 500)
+
 
 // 节流
 function throttle(func, context, params, delay) {
