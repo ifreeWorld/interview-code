@@ -1,21 +1,19 @@
 // bind
 Function.prototype.selfBind = function() {
+  var self = this
   var params = arguments
   var context = params[0]
   var args = Array.prototype.slice.call(params, 1)
-  var self = this
-  return function() {
-    return self.apply(context, args)
+  return (...rest) => {
+    self.apply(context, args.concat(rest))
   }
 }
 
-function test(a, b) {
-  console.log(a, b)
-  return 3
+function test(a,b,c) {
+  console.log(a, b, c)
 }
 
-var a = test.selfBind(window, 1, 2)()
-console.log(a)
+test.selfBind(window, 1, 2)(3)
 
 // call
 Function.prototype.selfCall = function() {
