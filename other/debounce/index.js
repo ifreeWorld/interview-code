@@ -1,19 +1,36 @@
 // 简易版本防抖
-function debounce(func, context, params, delay) {
+function debounce(func, context, params, delay, immediate) {
   var timer = null
-  return () => {
-    if (timer) {
-      clearTimeout(timer)
+  if (immediate) {
+    var flag = true
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      if (flag) {
+        func.apply(context, params)
+        flag = false
+      }
+      timer = setTimeout(() => {
+        flag = true
+      }, delay)
     }
-    timer = setTimeout(() => {
-      func.apply(context, params)
-    }, delay)
+    
+  } else {
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(() => {
+        func.apply(context, params)
+      }, delay)
+    }
   }
 }
 
 window.onmousemove = debounce((a) => {
   console.log(a)
-}, window, [1], 500)
+}, window, [1], 500, true)
 
 // 加强版防抖
 function debounce(func, delay, immediate) {
