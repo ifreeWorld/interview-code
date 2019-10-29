@@ -55,7 +55,6 @@ function binarySearch(list, value, start, end) {
     } else {
       return binarySearch(list, value, start, middle - 1)
     }
-        
   } else {
     // 说明左边是有序的
     if (value < list[middle] && value >= list[start]) {

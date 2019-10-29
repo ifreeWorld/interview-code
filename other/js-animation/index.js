@@ -18,15 +18,14 @@ function move1() {
 }
 move1()
 
-
 // 实现一个div滑动的动画，由快至慢到500px结束
 function move2() {
   var box = document.getElementById('box2')
   timer2 = setInterval(() => {
     var step = (500 - box.offsetTop) / 10
-    step = step>0?Math.ceil(step):Math.floor(step)
+    step = step > 0 ? Math.ceil(step) : Math.floor(step)
     box.style.top = box.offsetTop + step + 'px'
-    
+
     if (Math.abs(500 - box.offsetTop) <= Math.abs(step)) {
       clearInterval(timer2)
       box.style.top = 500 + 'px'

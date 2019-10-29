@@ -4,7 +4,7 @@
  */
 function cloneDeep(obj) {
   // 不是对象，直接返回
-  if (typeof obj !== 'object') {
+  if (typeof obj !== 'object' || obj === null) {
     return obj
   }
   // 是数组
