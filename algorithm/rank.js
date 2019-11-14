@@ -117,3 +117,53 @@ function quickSort(arr) {
 var array = [2, 1, 5, 2, 3, 9]
 var result = quickSort(array)
 console.log(result)
+
+/**
+ * 归并排序
+ * 归并排序就是将数组无限均分为小块的数组，然后均分到无数个长度为1的数组，然后再将各个数组进行合并，合并的时候进行排序
+ * 
+ * 原理就是，将数组无限均分为小块的数组，然后均分到无数个长度为1的数组，然后再将各个数组进行合并，合并的时候进行排序
+ * 
+ * （https://www.cnblogs.com/CassieHouse/p/9561262.html）
+ */
+function mergeSort(arr) {
+  console.log(arr)
+  var len = arr.length
+  if (arr.length <= 1) {
+    return arr
+  }
+  var mid = Math.floor(len / 2)
+  var left = arr.slice(0, mid)
+  var right = arr.slice(mid)
+  return merge(mergeSort(left), mergeSort(right))
+}
+
+function merge(left, right) {
+  var result = []
+  var i = 0
+  var j = 0
+  while(i < left.length && j < right.length) {
+    if (left[i] < right[j]) {
+      result.push(left[i])
+      i++
+    } else {
+      result.push(right[j])
+      j++
+    }
+  }
+  
+  while (i < left.length) {
+    result.push(left[i])
+    i++
+  }
+  while (j < right.length) {
+    result.push(right[j])
+    j++
+  }
+  console.log("将数组",left,'和',right,'合并为',result)
+  
+  return result
+}
+
+var arr = [3,4,1,535,123,5]
+console.log(mergeSort(arr))
