@@ -1,28 +1,29 @@
 // 简易版本防抖
-function debounce(func, context, params, delay, immediate) {
+function debounce(func, delay, immediate) {
   var timer = null
-  if (immediate) {
+  if(immediate){
     var flag = true
-    return () => {
+    return (...params) => {
       if (timer) {
         clearTimeout(timer)
+        timer = null
       }
       if (flag) {
-        func.apply(context, params)
+        func.apply(this, params)
         flag = false
       }
       timer = setTimeout(() => {
         flag = true
       }, delay)
     }
-    
   } else {
-    return () => {
+    return (...params) => {
       if (timer) {
         clearTimeout(timer)
+        timer = null
       }
       timer = setTimeout(() => {
-        func.apply(context, params)
+        func.apply(this, params)
       }, delay)
     }
   }

@@ -31,15 +31,18 @@ console.log(array)
  * 就是打扑克牌插入然后排序，首先将第0个元素为有序序列，然后从第1个开始，将第i个元素的左边的所有元素倒序遍历，从j=i-1开始遍历，如果j元素比第i个元素大，就j元素后移一位，然后j-1元素再和第i个元素比，直到比第1个元素小，就停下来不后移了，就把j+1元素赋值为第i个元素，就是第i个元素找到了他的位置
  * @param {*} arr 
  */
+
 function insert(arr) {
-  for (var i = 1; i < arr.length - 1; i++) {
-    var temp = arr[i]
-    for (var j = i - 1; j >= 0 && arr[j] > temp; j--) {
-      arr[j + 1] = arr[j]
+  for (var i = 1; i < arr.length; i++) {
+    for (var j = i-1; j >= 0 && arr[j] > arr[j+1]; j--) {
+      swap(arr, j, j+1)
     }
-    arr[j + 1] = temp
   }
+  return arr
 }
+
+var array = [2, 1, 5, 2, 3, 9]
+console.log(insert(array))
 
 var array = [2, 1, 5, 2, 3, 9]
 insert(array)
