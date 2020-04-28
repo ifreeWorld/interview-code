@@ -162,3 +162,20 @@ tree.midConsole()
 tree.midNotConsole()
 tree.afterConsole()
 tree.afterNotConsole()
+
+
+/**
+ * 反转二叉树
+ * @param {*} node 
+ */
+function reverseTree(node) {
+  if (!node) {
+    return
+  }
+
+  var temp = node.left
+  node.left = node.right
+  node.right = temp
+  reverseTree(node.left)
+  reverseTree(node.right)
+}
