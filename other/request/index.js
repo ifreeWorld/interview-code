@@ -23,7 +23,7 @@ function ajax(url, method) {
 }
 
 ajax(
-  'https://das01v.bda.shjt2.360es.cn/zuul/data-visualize-common/group/list',
+  '',
   'get'
 ).then(res => {
   console.log(res)
