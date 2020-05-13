@@ -126,6 +126,7 @@ function getTree(arr) {
   
   arr.forEach(item => {
     var parent = map[item.pid]
+    // parent为空，说明是第一个节点
     if (!parent) {
       result.push(item)
     } else {

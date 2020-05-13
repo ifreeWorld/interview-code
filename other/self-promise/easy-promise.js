@@ -67,7 +67,6 @@ MyPromise.prototype.all = (promises) => {
 }
 
 MyPromise.prototype.race = (promises) => {
-  var len = promises.length
   return new MyPromise((resolve, reject) => {
     promises.forEach(promise => {
       promise.then(resolve, reject);

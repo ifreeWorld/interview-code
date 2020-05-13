@@ -37,5 +37,3 @@ function getAllArr(arr, count, result, allResult, idx = 0) {
 var arr = enumArr([1,2,3,4,5,6],8,2)
 console.log(arr)
 
-
-Object.getPrototypeOf

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root" data-v="3">
+    <p data-v="1">p1</p>
+    <span data-v="2">
+      span1
+      <span data-v="4">span2</span>
+    </span>
+    <p data-v="99">p2</p>
+  </div>
+  <script>
+    function func(root) {
+      var arr = []
+      getConsole(root, arr, 0)
+    }
+
+    function getConsole(root, arr, max) {
+      arr.push(root.tagName.toLocaleUpperCase())
+      max = Math.max(max, root.getAttribute('data-v') || 0)
+      console.log(arr.join(','), max)
+      for (var i = 0; i < root.children.length; i++) {
+        getConsole(root.children[i], arr, max)
+        arr = []
+        arr.push(root.tagName.toLocaleUpperCase())
+      }
+    }
+
+    func(document.getElementById('root'))
+  </script>
+</body>
+
+</html>
+
+<!-- 输入根节点，打印标签路径，及其路径上data-v的最大值。
+<div id="root" data-v="3">
+    <p data-v="1">p1</p>
+    <span data-v="2">
+        span1
+        <span data-v="4">span2</span>
+    </span>
+    <p data-v="99">p2</p>
+</div>
+
+["DIV"] 3
+["DIV", "P"] 3
+["DIV", "SPAN"] 3
+["DIV", "SPAN", "SPAN"] 4
+["DIV", "P"] 99 -->
