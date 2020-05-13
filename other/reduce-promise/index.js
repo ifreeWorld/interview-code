@@ -23,7 +23,23 @@ var promise3 = function(i) {
     }, 1000)
   })
 }
-var arr = [promise1, promise2, promise3]
+var promise4 = function(i) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log(i+4)
+      resolve(i+4)
+    }, 1000)
+  })
+}
+var promise5 = function(i) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log(i+5)
+      resolve(i+5)
+    }, 1000)
+  })
+}
+var arr = [promise1, promise2, promise3, promise4, promise5]
 
 arr.reduce((prev, next) => {
   return prev.then((res) => {
