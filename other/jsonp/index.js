@@ -2,7 +2,7 @@ function jsonp(url, name, success) {
   var script = document.createElement('script')
   script.src = url
   window[name] = function(data) {
-    console.log(data)
+    success(data)
   }
 
   document.body.appendChild(script)
