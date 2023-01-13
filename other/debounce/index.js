@@ -1,104 +1,117 @@
 // 简易版本防抖
 function debounce(func, delay, immediate) {
-  var timer = null
-  if(immediate){
-    var flag = true
+  var timer = null;
+  if (immediate) {
+    var flag = true;
     return (...params) => {
       if (timer) {
-        clearTimeout(timer)
-        timer = null
+        clearTimeout(timer);
+        timer = null;
       }
       if (flag) {
-        func.apply(this, params)
-        flag = false
+        func.apply(this, params);
+        flag = false;
       }
       timer = setTimeout(() => {
-        flag = true
-      }, delay)
-    }
+        flag = true;
+      }, delay);
+    };
   } else {
     return (...params) => {
       if (timer) {
-        clearTimeout(timer)
-        timer = null
+        clearTimeout(timer);
+        timer = null;
       }
       timer = setTimeout(() => {
-        func.apply(this, params)
-      }, delay)
-    }
+        func.apply(this, params);
+      }, delay);
+    };
   }
 }
 
-window.onmousemove = debounce((a) => {
-  console.log(a)
-}, window, [1], 500, true)
+window.onmousemove = debounce(
+  () => {
+    console.log(1);
+  },
+  500,
+  true
+);
 
 // 加强版防抖
 function debounce(func, delay, immediate) {
-  var timer = null
-  var context
-  var args
+  var timer = null;
+  var context;
+  var args;
   var later = () => {
     return setTimeout(() => {
-      timer = null
+      timer = null;
       if (!immediate) {
-        func.apply(context, args)
+        func.apply(context, args);
       }
-    }, delay)
-  }
+    }, delay);
+  };
 
   return (...params) => {
     if (timer) {
-      clearTimeout(timer)
-      timer = later()
+      clearTimeout(timer);
+      timer = later();
     } else {
-      timer = later()
+      timer = later();
       if (immediate) {
-        func.apply(context, args)
+        func.apply(context, args);
       } else {
-        context = this
-        args = params
+        context = this;
+        args = params;
       }
     }
-  }
+  };
 }
 
-window.onmousemove = debounce(() => {
-  console.log(1111)
-}, 500, true)
+window.onmousemove = debounce(
+  () => {
+    console.log(1111);
+  },
+  500,
+  true
+);
 
 // 节流
 function throttle(func, delay) {
-  var last = 0
-  var timer = null
+  var last = 0;
+  var timer = null;
   return (...params) => {
-    var now = new Date()
+    var now = new Date();
     if (now - last > delay) {
-      last = now
+      last = now;
       timer = setTimeout(() => {
-        func.apply(this, params)
-      })
+        func.apply(this, params);
+      });
     }
-  }
+  };
 }
 window.onmousemove = throttle(() => {
-  console.log(1111)
-}, 500)
+  console.log(1111);
+}, 500);
 
 // 第二种节流
 function throttle(func, context, params, delay) {
-  var timer = null
+  var timer = null;
   return () => {
     if (timer) {
-      return
+      return;
     }
     timer = setTimeout(() => {
-      func.apply(context, params)
-      timer = null
-    }, delay)
-  }
+      func.apply(context, params);
+      timer = null;
+    }, delay);
+  };
 }
 
-window.onresize = throttle((a) => {
-  console.log(a)
-}, window, [2], 500)
+window.onresize = throttle(
+  (a) => {
+    console.log(a);
+  },
+  window,
+  [2],
+  500
+);

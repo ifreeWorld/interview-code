@@ -1,20 +1,20 @@
 class stack {
   constructor() {
-    this.arr = []
+    this.arr = [];
   }
   put(item) {
-    this.arr.push(item)
+    this.arr.push(item);
   }
   get() {
-    return this.arr.pop()
+    return this.arr.pop();
   }
   getFirst() {
-    return this.arr[this.arr.length - 1]
+    return this.arr[this.arr.length - 1];
   }
   count() {
-    return this.arr.length
+    return this.arr.length;
   }
   isEmpty() {
-    return this.arr.length === 0
+    return this.arr.length === 0;
   }
 }

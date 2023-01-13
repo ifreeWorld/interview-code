@@ -1,35 +1,35 @@
 // 方法一
 function compose(...fns) {
   return (...params) => {
-    var result = params
+    var result = params;
     for (var i = fns.length - 1; i >= 0; i--) {
-      var func = fns[i]
-      result = func(result)
+      var func = fns[i];
+      result = func(result);
     }
-    return result
-  }
+    return result;
+  };
 }
 
 // 方法二
-function compose(...fns) {
+function compose(...arr) {
   return (...params) => {
-    return fns.reduceRight((prev, next) => {
-      return next(prev)
-    }, params)
-  }
+    return arr.reduceRight((prev, next) => {
+      return next(prev);
+    }, params);
+  };
 }
 
-function A(m) {
-  return m + 'a'
+function A(m, n) {
+  return m + n + 'a';
 }
 
-function B(m) {
-  return m + 'b'
+function B(m, n) {
+  return m + n + 'b';
 }
 
-function C(m) {
-  return m + 'c'
+function C(m, n) {
+  return m + n + 'c';
 }
 
-var func = compose(A, B, C)
-console.log(func(1))
+var func = compose(A, B, C);
+console.log(func('1', '2'));

@@ -1,21 +1,22 @@
 function selfinstanceof(obj, func) {
-  var proto = obj.__proto__
-  while(true) {
+  if (typeof obj !== 'object') {
+    return false;
+  }
+  var proto = obj.__proto__;
+  while (true) {
     if (proto === null) {
-      return false
+      return false;
     }
     if (proto === func.prototype) {
-      return true
+      return true;
     }
-    proto = proto.__proto__
+    proto = proto.__proto__;
   }
 }
 
-function A() {
-  
-}
+function A() {}
 
-var a = new A()
-var b = {}
-console.log(selfinstanceof(a, A))
-console.log(selfinstanceof(b, A))
+var a = new A();
+var b = {};
+console.log(selfinstanceof(a, A));
+console.log(selfinstanceof(b, A));
