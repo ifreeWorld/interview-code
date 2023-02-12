@@ -20,3 +20,6 @@ var a = new A();
 var b = {};
 console.log(selfinstanceof(a, A));
 console.log(selfinstanceof(b, A));
+
+console.log(selfinstanceof(() => {}, Object));
+console.log((() => {}) instanceof Object);

@@ -19,17 +19,17 @@ function compose(...arr) {
   };
 }
 
-function A(m, n) {
-  return m + n + 'a';
+function A(m) {
+  return m + 'a';
 }
 
-function B(m, n) {
-  return m + n + 'b';
+function B(m) {
+  return m + 'b';
 }
 
-function C(m, n) {
-  return m + n + 'c';
+function C(m) {
+  return m + 'c';
 }
 
 var func = compose(A, B, C);
-console.log(func('1', '2'));
+console.log(func('1'));

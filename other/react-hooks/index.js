@@ -1,43 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const states = [];
-let cursor = 0;
+const memorizedState = [];
+const sIndex = 0;
 
-function useState(initialState) {
-  const currenCursor = cursor;
-  states[currenCursor] = states[currenCursor] || initialState;
-
-  function setState(newState) {
-    states[currenCursor] = newState;
-    render();
-  }
-
-  ++cursor;
-
-  return [states[currenCursor], setState];
+function useState(initState) {
+  const curIndex = sIndex;
+  memorizedState[curIndex] = memorizedState[curIndex] || initState;
+  const setState = (v) => {
+    memorizedState[curIndex] = v;
+    // render()
+  };
+  sIndex++;
+  return [memorizedState[curIndex], setState];
 }
 
-const depsArr = [];
-let effectCursor = 0;
+const memorizedDeps = [];
+const eIndex = 0;
 
 function useEffect(cb, deps) {
-  if (!depsArr[effectCursor]) {
-    depsArr[effectCursor] = deps;
+  const curIndex = eIndex;
+  if (!memorizedEffect[curIndex]) {
+    memorizedEffect[curIndex] = deps;
     cb();
-    ++effectCursor;
-    return;
+    eIndex++;
   }
-
-  const current = effectCursor;
-  const beforeDeps = depsArr[current];
-  const isChange = deps.some(
-    (item, effectCursor) => item !== beforeDeps[effectCursor]
-  );
-  if (isChange) {
+  const beforeDeps = memorizedEffect[curIndex];
+  const hasChange = deps.some((dep, i) => {
+    return beforeDeps[i] !== dep;
+  });
+  if (hasChange) {
+    memorizedEffect[curIndex] = deps;
     cb();
   }
-  ++effectCursor;
+  eIndex++;
 }
 
 function App() {

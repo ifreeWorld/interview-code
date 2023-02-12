@@ -1,8 +1,8 @@
 // 排序公共方法
 function swap(arr, left, right) {
-  var temp = arr[left]
-  arr[left] = arr[right]
-  arr[right] = temp
+  var temp = arr[left];
+  arr[left] = arr[right];
+  arr[right] = temp;
 }
 
 /**
@@ -15,38 +15,38 @@ function Bubble(arr) {
   for (var i = arr.length - 1; i > 0; i--) {
     for (var j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
-        swap(arr, j, j + 1)
+        swap(arr, j, j + 1);
       }
     }
   }
 }
 
-var array = [2, 1, 5, 2, 3, 9]
-Bubble(array)
-console.log(array)
+var array = [2, 1, 5, 2, 3, 9];
+Bubble(array);
+console.log(array);
 
 /**
  * 插入排序 O(N * N)
- * 
+ *
  * 就是打扑克牌插入然后排序，首先将第0个元素为有序序列，然后从第1个开始，将第i个元素的左边的所有元素倒序遍历，从j=i-1开始遍历，如果j元素比第i个元素大，就j元素后移一位，然后j-1元素再和第i个元素比，直到比第1个元素小，就停下来不后移了，就把j+1元素赋值为第i个元素，就是第i个元素找到了他的位置
- * @param {*} arr 
+ * @param {*} arr
  */
 
 function insert(arr) {
   for (var i = 1; i < arr.length; i++) {
-    for (var j = i-1; j >= 0 && arr[j] > arr[j+1]; j--) {
-      swap(arr, j, j+1)
+    for (var j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
+      swap(arr, j, j + 1);
     }
   }
-  return arr
+  return arr;
 }
 
-var array = [2, 1, 5, 2, 3, 9]
-console.log(insert(array))
+var array = [2, 1, 5, 2, 3, 9];
+console.log(insert(array));
 
-var array = [2, 1, 5, 2, 3, 9]
-insert(array)
-console.log(array)
+var array = [2, 1, 5, 2, 3, 9];
+insert(array);
+console.log(array);
 
 /**
  * 选择排序 O(N * N)
@@ -56,21 +56,21 @@ console.log(array)
  * @param {*} arr 
  */
 function select(arr) {
-  var min = 0
+  var min = 0;
   for (var i = 0; i < arr.length; i++) {
     min = i;
     for (var j = i + 1; j < arr.length; j++) {
       if (arr[j] < arr[min]) {
-        min = j
+        min = j;
       }
     }
-    swap(arr, min, i)
+    swap(arr, min, i);
   }
 }
 
-var array = [2, 1, 5, 2, 3, 9]
-select(array)
-console.log(array)
+var array = [2, 1, 5, 2, 3, 9];
+select(array);
+console.log(array);
 
 /**
  * 快速排序 O(logN)
@@ -79,94 +79,96 @@ console.log(array)
  * 右指针往中间移动并遍历，找到右指针指向的元素比基准值小的，右指针就停下；
  * 然后就调换左指针指向的元素和右指针指向的元素的位置，调换之后2个指针再往中间移动，碰到符合上面的条件就再调换
  * 直到2个指针一旦相等就停止，再进入下一次的递归，递归 头部-左指针位置的数组，递归左指针位置-尾部的数组
- * 
+ *
  * 原理就是，每次递归让左边是比基准值小，右边是比基准值大
- * 
+ *
  * 注意：如果选取最左边的元素作为基准值，就必须先移动右指针；相反，如果选取最右边的元素作为基准值，就必须先移动左指针
  * （https://segmentfault.com/a/1190000014406198?utm_source=tag-newest）
  */
 
 function quickSort(arr) {
   if (arr.length <= 1) {
-    return arr
+    return arr;
   }
-  
+
   var left = 0;
-  var right = arr.length - 1
-  var basic = 0
-  
+  var right = arr.length - 1;
+  var basic = 0;
+
   while (left < right) {
     // 寻找右边比基准值小的数的下标（选取最左边的元素作为基准值，就必须先移动右指针）
     while (arr[right] >= arr[basic] && left < right) {
-      right=right-1;
+      right = right - 1;
     }
     // 寻找左边比基准值大的数的下标
     while (arr[left] <= arr[basic] && left < right) {
-      left++
+      left++;
     }
-    
+
     // 如果左边等于右边，就把基准值和下标的值换位置
     if (left === right) {
-      swap(arr, right, basic)
+      swap(arr, right, basic);
     } else {
       // 如果左边不等于右边，说明是要把left和right的值换位置
-      swap(arr, left, right)
+      swap(arr, left, right);
     }
   }
-  
-  return quickSort(arr.slice(0, left)).concat(arr.slice(left,right+1)).concat(quickSort(arr.slice(right+1)))
+
+  return quickSort(arr.slice(0, left))
+    .concat(arr.slice(left, right + 1))
+    .concat(quickSort(arr.slice(right + 1)));
 }
 
-var array = [2, 1, 5, 2, 3, 9]
-var result = quickSort(array)
-console.log(result)
+var array = [2, 1, 5, 2, 3, 9];
+var result = quickSort(array);
+console.log(result);
 
 /**
  * 归并排序 O(N * logN)
  * 归并排序就是将数组无限均分为小块的数组，然后均分到无数个长度为1的数组，然后再将各个数组进行合并，合并的时候进行排序
- * 
+ *
  * 原理就是，将数组无限均分为小块的数组，然后均分到无数个长度为1的数组，然后再将各个数组进行合并，合并的时候进行排序
- * 
+ *
  * （https://www.cnblogs.com/CassieHouse/p/9561262.html）
  */
 function mergeSort(arr) {
-  console.log(arr)
-  var len = arr.length
+  console.log(arr);
+  var len = arr.length;
   if (arr.length <= 1) {
-    return arr
+    return arr;
   }
-  var mid = Math.floor(len / 2)
-  var left = arr.slice(0, mid)
-  var right = arr.slice(mid)
-  return merge(mergeSort(left), mergeSort(right))
+  var mid = Math.floor(len / 2);
+  var left = arr.slice(0, mid);
+  var right = arr.slice(mid);
+  return merge(mergeSort(left), mergeSort(right));
 }
 
 function merge(left, right) {
-  var result = []
-  var i = 0
-  var j = 0
-  while(i < left.length && j < right.length) {
+  var result = [];
+  var i = 0;
+  var j = 0;
+  while (i < left.length && j < right.length) {
     if (left[i] < right[j]) {
-      result.push(left[i])
-      i++
+      result.push(left[i]);
+      i++;
     } else {
-      result.push(right[j])
-      j++
+      result.push(right[j]);
+      j++;
     }
   }
-  
+
   while (i < left.length) {
-    result.push(left[i])
-    i++
+    result.push(left[i]);
+    i++;
   }
   while (j < right.length) {
-    result.push(right[j])
-    j++
+    result.push(right[j]);
+    j++;
   }
-  console.log("将数组",left,'和',right,'合并为',result)
-  
-  return result
+  console.log('将数组', left, '和', right, '合并为', result);
+
+  return result;
 }
 
-var arr = [3,4,1,535,123,5]
-console.log(mergeSort(arr))
+var arr = [3, 4, 1, 535, 123, 5];
+console.log(mergeSort(arr));
