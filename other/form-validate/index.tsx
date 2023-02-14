@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 const reg = /[\u4e00-\u9fa5]/gm;
 
 const Test = () => {
   const [nameError, setNameError] = useState<string>();
   const [descError, setDescError] = useState<string>();
   const [sexError, setSexError] = useState<string>();
-  const formRef = useRef<HTMLFormElement>(null);
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -43,7 +42,7 @@ const Test = () => {
   };
   return (
     <div>
-      <form ref={formRef} onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <div id="name" style={{ height: '200px' }}>
           <label>姓名</label>
           <input type="text" name="name" />
