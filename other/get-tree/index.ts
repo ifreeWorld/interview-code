@@ -80,3 +80,4 @@ function loop11(arr: Item[], pid: number): Child[] {
 }
 
 console.log(JSON.stringify(getTree(ar11r)));
+export {};

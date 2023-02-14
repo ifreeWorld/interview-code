@@ -1,58 +1,85 @@
-function createStore(
-  reducer: Function,
-  initState: any
-): {
-  dispatch: (action: any) => void;
-  subscribe: (cb: (s: any) => void) => void;
-  getState: () => any;
-} {
-  let state = initState;
-  let callbacks: ((s: any) => void)[] = [];
-  let store = {
-    dispatch: (action: any) => {
-      state = reducer(state, action);
+function createStore(reducer: any, initState: any) {
+  var state = initState;
+  var callbacks: Function[] = [];
+  var store = {
+    dispatch: (action: { type: string }) => {
+      state = reducer(action, state);
       callbacks.forEach((cb) => {
         cb(state);
       });
     },
-    subscribe: (cb: (s: any) => void) => {
-      callbacks.push(cb);
-    },
     getState: () => {
       return state;
+    },
+    subscribe: (cb: Function) => {
+      callbacks.push(cb);
     },
   };
   return store;
 }
 
-const reducer = (state: any, { type }: { type: 'ADD' | 'REMOVE' }) => {
-  if (type === 'ADD') {
-    return {
-      ...state,
-      count: state.count + 1,
-    };
-  }
-  if (type === 'REMOVE') {
-    return {
-      ...state,
-      count: state.count - 1,
-    };
+var reducer1 = (action: { type: string }, state: any) => {
+  switch (action.type) {
+    case 'ADD':
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case 'REMOVE':
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    default:
+      return state;
   }
 };
 
-const store = createStore(reducer, {
-  count: 1,
-});
-store.subscribe((s) => {
-  console.log(store.getState(), s);
-});
+var reducer2 = (action: { type: string }, state: any) => {
+  switch (action.type) {
+    case 'ADD2':
+      return {
+        ...state,
+        count2: state.count2 + 1,
+      };
+    case 'REMOVE2':
+      return {
+        ...state,
+        count2: state.count2 - 1,
+      };
+    default:
+      return state;
+  }
+};
+var combineReducer = (reducers: Record<string, any>) => {
+  return (action: { type: string }, state: Record<string, any>) => {
+    return Object.keys(reducers).reduce((prev: Record<string, any>, next) => {
+      prev[next] = reducers[next](action, state[next]);
+      return prev;
+    }, state);
+  };
+};
 
-store.dispatch({
+var store1 = createStore(
+  combineReducer({
+    reducer1,
+    reducer2,
+  }),
+  { reducer1: { count: 1 }, reducer2: { count2: 10 } }
+);
+store1.subscribe((s: any) => {
+  console.log(s);
+  console.log(store1.getState());
+});
+store1.dispatch({
   type: 'ADD',
 });
-store.dispatch({
-  type: 'ADD',
-});
-store.dispatch({
+store1.dispatch({
   type: 'REMOVE',
+});
+store1.dispatch({
+  type: 'ADD2',
+});
+store1.dispatch({
+  type: 'REMOVE2',
 });

@@ -50,3 +50,4 @@ function BindTest(a: number, b: number, c: number) {
 }
 
 BindTest.selfBind(this, 1, 2)(3);
+// export {};

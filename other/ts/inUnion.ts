@@ -1,4 +1,5 @@
 // https://github.com/type-challenges/type-challenges/blob/main/questions/01097-medium-isunion/README.md
+// 这里有解析 https://zhuanlan.zhihu.com/p/537207402
 
 type case1 = IsUnion<string>; // false
 type case2 = IsUnion<string | number>; // true
@@ -11,3 +12,5 @@ type IsUnion<T, U = T> = [T] extends [never]
   : [U] extends [T]
   ? false
   : true;
+
+// type IsUnion<A, B = A> = A extends A ? ([B] extends [A] ? false : true) : never;

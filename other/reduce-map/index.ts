@@ -77,3 +77,4 @@ var add2 = arr2.selfReduce(function (prev: number, cur, idx, src) {
 });
 console.log(add1);
 console.log(add2);
+export {};

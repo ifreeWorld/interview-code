@@ -21,16 +21,13 @@ type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y
 
 // lastIndexOf https://github.com/type-challenges/type-challenges/blob/main/questions/05317-medium-lastindexof/README.zh-CN.md
 
+type LastIndexOf<T extends any[], U> = T extends [...infer Rest, infer Last]
+  ? Equal<Last, U> extends true
+    ? Rest['length']
+    : LastIndexOf<Rest, U>
+  : -1;
+
 type Res11 = LastIndexOf<[1, 2, 3, 2, 1], 2>; // 3
 type Res22 = LastIndexOf<[0, 0, 0], 2>; // -1
-
-type LastIndexOf<T extends any[], U, L extends any[] = []> = T extends [
-  ...infer Rest,
-  infer Last
-]
-  ? Equal<Last, U> extends true
-    ? L['length']
-    : IndexOf<Rest, U, [...L, 1]>
-  : -1;
 
 export {};

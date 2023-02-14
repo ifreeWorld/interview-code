@@ -13,6 +13,6 @@ interface Dog {
   color: 'brown' | 'white' | 'black';
 }
 
-type LookUp<T, U extends T[keyof T]> = T extends { type: U } ? U : never;
+type LookUp<T, U extends T[keyof T]> = T extends { type: U } ? T : never;
 
 type MyDog = LookUp<Cat | Dog, 'dog'>; // expected to be `Dog`
