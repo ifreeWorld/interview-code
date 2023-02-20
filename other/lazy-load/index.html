@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .lazy-image {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid1.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid2.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid3.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid4.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid1.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid2.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid3.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid4.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid1.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid2.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid3.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid4.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid1.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid2.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid3.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid4.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid1.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid2.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid3.jpg" />
+      <img class="lazy-image" data-src="https://tb1.bdstatic.com/tb/cms/liveshow/ent_slid4.jpg" />
+    </div>
+  </body>
+  <script>
+    // 在图片高度未知的情况下，如何懒加载图片？因为初始化的图片高度为0，计算位置会有问题
+    // 总结思路：先递归预加载图片，获取一部分图片高度，直到总高度大于屏幕高度，就不预加载了，然后再调用懒加载的函数
+    function preLoad() {
+      let count = 0;
+      const imageElements = Array.prototype.slice.call(document.querySelectorAll('.lazy-image'));
+      const totalHeight = document.documentElement.clientHeight;
+      let calcHeight = 0;
+      function preLoadLoop() {
+        var img = new Image();
+        img.src = imageElements[count].dataset.src;
+        count++;
+        // 加载成功和失败都会执行
+        img.onload = img.onerror = function () {
+          calcHeight += img.height;
+          if (count === imageElements.length) {
+            return;
+          } else if (calcHeight > totalHeight) {
+            inViewShow();
+            return;
+          }
+          preLoadLoop();
+        };
+      }
+      preLoadLoop();
+    }
+
+    function inViewShow() {
+      let imageElements = Array.prototype.slice.call(document.querySelectorAll('.lazy-image'));
+      let len = imageElements.length;
+      for (let i = 0; i < len; i++) {
+        let imageElement = imageElements[i];
+        const rect = imageElement.getBoundingClientRect(); // 出现在视野的时候加载图片
+        if (rect.top < document.documentElement.clientHeight) {
+          imageElement.src = imageElement.dataset.src; // 移除掉已经显示的
+          imageElements.splice(i, 1);
+          len--;
+          i--;
+        }
+      }
+    }
+    document.addEventListener('scroll', inViewShow);
+    preLoad();
+
+    //   // 推荐使用IntersectionObserver
+    // function lazyLoadWithObserver() {
+    //   let observer = new IntersectionObserver((entries, observe) => {
+    //     entries.forEach((item) => {
+    //       // 获取当前正在观察的元素
+    //       let target = item.target;
+    //       if (item.isIntersecting && target.dataset.src) {
+    //         target.src = target.dataset.src; // 删除data-src属性
+    //         target.removeAttribute('data-src'); // 取消观察
+    //         observe.unobserve(item.target);
+    //       }
+    //     });
+    //   });
+
+    //   let imgs = document.querySelectorAll('.lazy-image');
+
+    //   imgs.forEach((item) => {
+    //     // 遍历观察元素
+    //     observer.observe(item);
+    //   });
+    // }
+
+    // lazyLoadWithObserver();
+  </script>
+</html>
