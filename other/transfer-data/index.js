@@ -24,3 +24,11 @@ function loop(obj, key, str, result) {
   }
 }
 swap({ a: { b: { c: 1 } }, d: [1, 2] });
+
+function swap(obj) {
+  var result = {};
+  Object.keys(obj).reduce((prev, next) => {
+    const value = prev[next];
+    result[`${next}`];
+  }, obj);
+}

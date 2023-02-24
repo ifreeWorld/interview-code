@@ -114,7 +114,7 @@ const addTask = (time, order) => {
   scheduler.add(() => timeout(time)).then(() => console.log(order));
 };
 
-addTask(4000, 4);
-addTask(2000, 2);
-addTask(3000, 3);
-addTask(1000, 1);
+addTask(800, 4);
+addTask(400, 2);
+addTask(300, 3);
+addTask(100, 1);

@@ -1,33 +1,27 @@
-// 循环引用weakmap做垃圾回收
-const map = new WeakMap();
-/**
- * 深拷贝
- * @param {*} obj
- */
+var map = new WeakMap();
+
 function cloneDeep(obj) {
-  // 不是对象，直接返回
   if (typeof obj !== 'object' || obj === null) {
     return obj;
   }
+
   if (map.has(obj)) {
     return map.get(obj);
   }
   var result = Array.isArray(obj) ? [] : {};
-  map.set(obj, result);
-  // 是数组
   if (Array.isArray(obj)) {
     obj.forEach((item) => {
       result.push(cloneDeep(item));
     });
-    return result;
+    map.set(obj, result);
   } else {
-    // 不是数组，说明是对象
-    Object.keys(obj).forEach((key) => {
+    for (var key in obj) {
       result[key] = cloneDeep(obj[key]);
-    });
-    return result;
+    }
+    map.set(obj, result);
   }
 }
+
 const obj1 = {
   b: {
     c: 1,
