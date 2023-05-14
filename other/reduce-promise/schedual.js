@@ -66,35 +66,32 @@ https://juejin.cn/post/6913493585363599373
 // 方法一
 class Scheduler {
   constructor() {
-    this.maxNum = 2;
     this.tasks = [];
+    this.maxNum = 2;
     this.runningCount = 0;
-    this.index = 0;
   }
-  add(promiseCreator) {
-    return new Promise((resolve, reject) => {
-      promiseCreator.resolve = resolve;
-      this.tasks.push(promiseCreator);
+  add(fn) {
+    return new Promise((resolve) => {
+      fn.resolve = resolve;
+      this.tasks.push(fn);
       if (this.runningCount < this.maxNum) {
-        this.run();
+        this.loop();
       }
     });
   }
-  async run() {
-    if (this.index === this.tasks.length) {
+  async loop() {
+    if (this.tasks.length === 0) {
       return;
     }
-    let temp = this.index;
-    const task = this.tasks[temp];
+    var task = this.tasks.shift();
     this.runningCount++;
-    this.index++;
     try {
       const res = await task();
-      task.resolve(res);
+      task.resolve();
     } finally {
       this.runningCount--;
       if (this.runningCount < this.maxNum) {
-        this.run();
+        this.loop();
       }
     }
   }

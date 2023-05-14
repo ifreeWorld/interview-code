@@ -16,6 +16,7 @@ instanceof
 jsonp
 react-hooks
 reduce-map
+reduce-promise
 redux
 self-new
 
