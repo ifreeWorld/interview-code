@@ -24,6 +24,7 @@ function useEffect(cb, deps) {
     memorizedEffect[curIndex] = deps;
     cb();
     eIndex++;
+    return;
   }
   const beforeDeps = memorizedEffect[curIndex];
   const hasChange = deps.some((dep, i) => {

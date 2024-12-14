@@ -10,16 +10,17 @@ function cloneDeep(obj) {
   }
   var result = Array.isArray(obj) ? [] : {};
   if (Array.isArray(obj)) {
+    map.set(obj, result);
     obj.forEach((item) => {
       result.push(cloneDeep(item));
     });
-    map.set(obj, result);
   } else {
+    map.set(obj, result);
     for (var key in obj) {
       result[key] = cloneDeep(obj[key]);
     }
-    map.set(obj, result);
   }
+  return result;
 }
 
 const obj1 = {

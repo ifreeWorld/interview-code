@@ -11,48 +11,38 @@ https://juejin.cn/post/6913493585363599373
 // class Scheduler {
 //   constructor(maxNum) {
 //     this.tasks = [];
-//     this.index = 0;
-//     this.doneCount = 0;
 //     this.maxNum = maxNum;
+//     this.runningCount = 0;
 //   }
-//   addTask(delay, value) {
-//     const task = () => {
+//   addTask(delay, str) {
+//     this.tasks.push(() => {
 //       return new Promise((resolve) => {
 //         setTimeout(() => {
-//           resolve(value);
+//           console.log(str);
+//           resolve();
 //         }, delay * 1000);
 //       });
-//     };
-//     this.tasks.push(task);
+//     });
 //   }
 //   async run() {
-//     if (this.index >= this.tasks.length) {
-//       return;
-//     }
-//     const temp = this.index;
-//     const task = this.tasks[temp];
-//     this.index++;
-//     try {
-//       const res = await task();
-//       console.log(res);
-//     } catch (e) {
-//       console.log(e);
-//     } finally {
-//       this.doneCount++;
-//       if (this.doneCount === this.tasks.length) {
-//         return;
-//       } else {
-//         this.run();
-//       }
+//     if (this.runningCount < this.maxNum) {
+//       const task = this.tasks.shift();
+//       this.runningCount++;
+//       task().then(() => {
+//         this.runningCount--;
+//         if (this.tasks.length !== 0) {
+//           this.run();
+//         }
+//       });
 //     }
 //   }
 //   start() {
-//     for (var i = 0; i < Math.min(this.tasks.length, this.maxNum); i++) {
+//     for (let i = 0; i < Math.min(this.maxNum, this.tasks.length); i++) {
 //       this.run();
 //     }
 //   }
 // }
-// var scheduler = new Scheduler(2);
+// const scheduler = new Scheduler(2);
 // scheduler.addTask(1, '1'); // 1s后输出’1'
 // scheduler.addTask(2, '2'); // 2s后输出’2'
 // scheduler.addTask(1, '3'); // 2s后输出’3'

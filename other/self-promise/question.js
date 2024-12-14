@@ -30,6 +30,7 @@ Promise.all(tasks.map((task) => task())).then(console.log);
 var count = 1;
 var test = function () {
   console.log('start');
+  console.log('count', this.count);
   setTimeout(() => {
     console.log(this.count, 11);
   }, 10);
@@ -47,6 +48,12 @@ var test = function () {
 };
 
 test.call({ count: 2 });
+
+// start
+// end
+// promise
+// 2 11
+// 1
 
 async function async1() {
   console.log('async1 start');
