@@ -9,3 +9,5 @@ type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer U>
     ? MyAwaited<U>
     : U
   : T;
+
+  export {}

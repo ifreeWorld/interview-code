@@ -5,3 +5,5 @@ type res = First<arr1>; // 1
 type First<T extends any[]> = T extends [infer First, ...infer Rest]
   ? First
   : never;
+
+export {}

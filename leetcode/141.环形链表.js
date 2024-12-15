@@ -82,19 +82,15 @@
  * @return {boolean}
  */
 var hasCycle = function (head) {
-  var map = new Map();
-  var temp = head;
-  if (head === null) {
-    return false;
-  }
-  while (!map.has(temp)) {
-    map.set(temp, true);
-    if (temp.next) {
-      temp = temp.next;
-    } else {
-      return false;
+  var map = new Map()
+  var cur = head
+  while (cur) {
+    if (map.has(cur)) {
+      return true
     }
+    map.set(cur, true)
+    cur = cur.next
   }
-  return true;
+  return false
 };
 // @lc code=end

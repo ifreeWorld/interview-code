@@ -2,13 +2,13 @@
 // {a: {b: {c:1}}, d:[1,2]}
 // 转换成：
 // {'a.b.c': 1,  'd[0]':1, 'd[1]':2}
-function swap(obj) {
-  var result = {};
-  for (var key in obj) {
-    loop(obj, key, key, result);
-  }
-  console.log(result);
-}
+// function swap(obj) {
+//   var result = {};
+//   for (var key in obj) {
+//     loop(obj, key, key, result);
+//   }
+//   console.log(result);
+// }
 
 function loop(obj, key, str, result) {
   if (typeof obj[key] !== 'object' || obj[key] === null) {
@@ -24,11 +24,3 @@ function loop(obj, key, str, result) {
   }
 }
 swap({ a: { b: { c: 1 } }, d: [1, 2] });
-
-function swap(obj) {
-  var result = {};
-  Object.keys(obj).reduce((prev, next) => {
-    const value = prev[next];
-    result[`${next}`];
-  }, obj);
-}

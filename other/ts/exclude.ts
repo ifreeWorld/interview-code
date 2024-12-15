@@ -4,3 +4,4 @@
 type obj2 = MyExclude<'a' | 'b' | 'c', 'a' | 'b'>;
 
 type MyExclude<T, U> = T extends U ? never : T;
+export {}

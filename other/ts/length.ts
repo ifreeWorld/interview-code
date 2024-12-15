@@ -4,3 +4,5 @@ type arr = [1, 2, 3];
 type len = Length<arr>; // 3
 
 type Length<T extends any[]> = T['length'];
+
+export {}

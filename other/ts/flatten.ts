@@ -1,9 +1,7 @@
 // 数组拍平 https://github.com/type-challenges/type-challenges/blob/main/questions/00459-medium-flatten/README.zh-CN.md
 type Flatten<T extends any[]> = T extends [infer First, ...infer Rest]
-  ? First extends any[]
-    ? [...Flatten<First>, ...Flatten<Rest>]
-    : [First, Flatten<Rest>]
-  : T;
+  ? First extends any[] ? [...Flatten<First>, ...Flatten<Rest>] : [First, ...Flatten<Rest>]
+  : []
 
 function flat<T extends any[]>(arr: T): Flatten<T> {
   var result: unknown[] = [];
@@ -16,6 +14,9 @@ function flat<T extends any[]>(arr: T): Flatten<T> {
   });
   return result as Flatten<T>;
 }
+
+type flatten = Flatten<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, 5]
+
 
 // 数组拍平depth https://github.com/type-challenges/type-challenges/blob/main/questions/03243-medium-flattendepth/README.md
 

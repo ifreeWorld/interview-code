@@ -6,3 +6,5 @@ type b = [3, 4];
 type c = Concat<a, b>;
 
 type Concat<A extends any[], B extends any[]> = [...A, ...B];
+
+export {}

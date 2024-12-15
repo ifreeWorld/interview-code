@@ -30,3 +30,5 @@ function getType(x: Rect | Circle) {
     console.log(x.width);
   }
 }
+
+export {}

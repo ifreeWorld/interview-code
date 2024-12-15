@@ -3,3 +3,5 @@ type A = If<true, 'a', 'b'>; // expected to be 'a'
 type B = If<false, 'a', 'b'>; // expected to be 'b'
 
 type If<Flag extends boolean, A, B> = Flag extends true ? A : B;
+
+export {}

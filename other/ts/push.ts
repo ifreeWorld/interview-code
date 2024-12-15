@@ -13,3 +13,5 @@ type arr4 = [1, 2, 3];
 type Res2 = Push<arr3, 1>;
 
 type Unshift<T extends any[], U> = [U, ...T];
+
+export {}
