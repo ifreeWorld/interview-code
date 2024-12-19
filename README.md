@@ -19,6 +19,7 @@ reduce-map
 reduce-promise
 redux
 self-new
+ts
 
 面试前建议刷的题：
 binarySearch
