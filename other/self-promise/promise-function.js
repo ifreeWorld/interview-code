@@ -107,6 +107,7 @@ function allSettled(arr) {
     });
   });
 }
+
 function allSettled(arr) {
   const FULFILLED = 'fulfilled';
   const REJECTED = 'rejected';

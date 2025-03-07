@@ -5,35 +5,35 @@
  * @param {*} count 取出数量
  */
 function enumArr(arr, sum, count) {
-  var allResult = []
-  var data = []
-  getAllArr(arr, count, [], allResult)
-  allResult.forEach(item => {
-    if (item.reduce((prev, next) => {
-      return prev + next
-    }, 0) === sum) {
-      data.push(item)
+  var allResult = [];
+  getAllArr(arr, count, [], allResult);
+  var data = [];
+  allResult.forEach((item) => {
+    if (
+      item.reduce((prev, next) => {
+        return prev + next;
+      }, 0) === sum
+    ) {
+      data.push(item);
     }
-  })
-  return data
-}
+  });
 
+  return data;
+}
 function getAllArr(arr, count, result, allResult, idx = 0) {
   if (count > 0) {
     for (var i = idx; i < arr.length; i++) {
-      var temp = [...result]
-      temp.push(arr[i])
+      var temp = [...result];
+      temp.push(arr[i]);
       if (count === 1) {
-        allResult.push(temp)
+        allResult.push(temp);
       }
-      getAllArr(arr, count - 1, temp, allResult, i + 1)
+      getAllArr(arr, count - 1, temp, allResult, i + 1);
     }
   }
-  
-  return allResult
+
+  return allResult;
 }
 
-
-var arr = enumArr([1,2,3,4,5,6],8,2)
-console.log(arr)
-
+var arr = enumArr([1, 2, 3, 4, 5, 6], 8, 2);
+console.log(arr);

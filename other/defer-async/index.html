@@ -1,0 +1,40 @@
+<!-- // a.js
+console.log(1)
+// b.js
+console.log(2)
+// c.js
+console.log(3)
+ -->
+<!DOCTYPE html>
+<html>
+  <script src="./a.js" defer></script>
+  <script src="./b.js" async></script>
+  <script src="./c.js"></script>
+  <style>
+    console.log(4)
+  </style>
+  <body>
+    <script>
+      console.log(5);
+
+      window.addEventListener('load', () => {
+        console.log(6);
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        console.log(10);
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log(7);
+      });
+      let i = 0;
+      while (i < 9999) {
+        i++;
+      }
+      console.log(8);
+
+      // 3 5 8 2 1 7 10 6
+    </script>
+  </body>
+</html>

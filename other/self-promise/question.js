@@ -50,10 +50,11 @@ var test = function () {
 test.call({ count: 2 });
 
 // start
+// count 2
 // end
 // promise
-// 2 11
 // 1
+// 2 11
 
 async function async1() {
   console.log('async1 start');

@@ -34,10 +34,11 @@ var a = {
 
 var proxy = new Proxy(a, {
   get: function (target, key, receiver) {
-    return target[key];
+    return Reflect.get(target, key, receiver);
   },
   set: function (target, key, value, receiver) {
-    target[key] = value;
+    // target[key] = value;
+    Reflect.set(target, key, value, receiver);
   },
 });
 console.log(proxy.name);

@@ -3,6 +3,7 @@
 面试用的手写代码
 
 面试前必刷的题：
+defer-async
 random
 array-flatten
 call-bind-apply

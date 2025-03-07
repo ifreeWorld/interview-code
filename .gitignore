@@ -3,3 +3,4 @@ node_modules/
 package-lock\.json
 code.js
 code.js.map
+.DS_Store
